@@ -1,0 +1,23 @@
+#!/bin/bash
+# Part B Scripting Requirement 1
+# This script will display one of the following
+# 1. Amount of free and occupied memory.
+# 2. Amount of disk space occupied and free on system.
+# 3. Connection info for each network connection onf system.
+# 4. Amount of time system has been running.
+
+if [ $1 == 'mem' ]
+then
+  free -m
+elif [ $1 == 'disk' ]
+then
+  df
+elif [ $1 == 'con' ]
+then
+  netstat -a
+elif [ $1 == 'time' ]
+then
+  uptime
+else
+  echo "Error! please enter a valid argument."
+fi
