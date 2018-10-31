@@ -8,13 +8,13 @@
 
 if [ $1 == 'mem' ]
 then
-  free -m
+  free -m -h
 elif [ $1 == 'disk' ]
 then
-  df
+  df -h
 elif [ $1 == 'con' ]
 then
-  netstat -a
+  ifconfig
 elif [ $1 == 'time' ]
 then
   uptime
