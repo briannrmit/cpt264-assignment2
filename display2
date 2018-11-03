@@ -1,5 +1,8 @@
 
 #!/bin/bash
+# This script fulfills the requirements for scripting part B, part 2 of the
+# second assignment of CPT264
+
 
 while getopts ":abcde" opt; do
   case $opt in
@@ -7,7 +10,10 @@ while getopts ":abcde" opt; do
       NCORE="$(grep -c ^processor /proc/cpuinfo)"
       echo Number of CPU cores on the system is ${NCORE};;
     b)
-      echo test;;
+      #get PID of current script
+      processpid="$(pgrep display2)"
+      niceness="$(ps -o ni $processpid | head -n 2 | tail -n 1)"
+      echo The priority (nice number) of the the current process is ${niceness};;
     c)
       echo test;;
     d)
