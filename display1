@@ -1,5 +1,6 @@
 #!/bin/bash
 # Part B Scripting Requirement 1
+# Written by Brian Nguyen s3689020
 # This script will display one of the following
 # 1. Amount of free and occupied memory.
 # 2. Amount of disk space occupied and free on system.
@@ -8,16 +9,16 @@
 
 if [ $1 == 'mem' ]
 then
-  free -m -h
+  free -m -h  # provides info on memory
 elif [ $1 == 'disk' ]
 then
-  df -h
+  df -h  # provides disk free space occupied
 elif [ $1 == 'con' ]
 then
-  ifconfig
+  ifconfig  # provides connection information
 elif [ $1 == 'time' ]
 then
-  uptime
+  uptime  # provides system running uptime
 else
-  echo "Error! please enter a valid argument."
+  echo "Error! please enter a valid argument."  # error message if user enter invalid argument
 fi
