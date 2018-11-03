@@ -3,6 +3,7 @@
 # This script fulfills the requirements for scripting part B, part 2 of the
 # second assignment of CPT264
 
+userid="$(whoami)"
 
 while getopts ":abcde" opt; do
   case $opt in
@@ -15,12 +16,14 @@ while getopts ":abcde" opt; do
       niceness="$(ps -o ni $processpid | head -n 2 | tail -n 1)"
       echo The priority of the the current process is ${niceness};;
     c)
-      userid="$(whoami)"
       nprocesses="$(ps -u $userid | wc -l)"
       echo The number of processes being run by current user is ${nprocesses};;
     d)
-      echo test;;
+      #gets number of open file descriptors by current user
+      nofd="$(lsof | grep $userid | wc -l)"
+      echo The number of open file descriptors by current user is ${nofd};;
     e)
-      echo test;;
+      maxnumperprocess="$(ulimit -n)"
+      echo The max number of open files per process for this system is $maxnumperprocess;;
   esac
 done
