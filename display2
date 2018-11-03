@@ -13,9 +13,11 @@ while getopts ":abcde" opt; do
       #get PID of current script
       processpid="$(pgrep display2)"
       niceness="$(ps -o ni $processpid | head -n 2 | tail -n 1)"
-      echo The priority (nice number) of the the current process is ${niceness};;
+      echo The priority of the the current process is ${niceness};;
     c)
-      echo test;;
+      userid="$(whoami)"
+      nprocesses="$(ps -u $userid | wc -l)"
+      echo The number of processes being run by current user is ${nprocesses};;
     d)
       echo test;;
     e)
