@@ -1,0 +1,18 @@
+
+#!/bin/bash
+
+while getopts ":abcde" opt; do
+  case $opt in
+    a)
+      NCORE="$(grep -c ^processor /proc/cpuinfo)"
+      echo Number of CPU cores on the system is ${NCORE};;
+    b)
+      echo test;;
+    c)
+      echo test;;
+    d)
+      echo test;;
+    e)
+      echo test;;
+  esac
+done
