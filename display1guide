@@ -11,6 +11,7 @@ display1 [mem] [disk] [con] [uptime]
 .SH DESCRIPTION
 This simple application allows the user to display information based on an argument put in.
 The information displayed includes memory, disk space, connection devices and uptime of system.
+Arguments added that aren't valid, will return an error message so the user will need to retry the script if this happens.
 
 .SH OPTIONS
 .IP mem
