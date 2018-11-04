@@ -1,0 +1,71 @@
+commit 33181831c323732adc2b2814c4e4f18652f28cfc
+Author: Brian Nguyen <s3689020@student.rmit.edu.au>
+Date:   Sun Nov 4 17:36:59 2018 +1100
+
+    Added a created display2guide man page for the user doco requirements
+
+commit 9bf5e7f7565a18fc47ffef7c056a047cc8f899a9
+Author: Brian Nguyen <s3689020@student.rmit.edu.au>
+Date:   Sun Nov 4 17:08:16 2018 +1100
+
+    Edited display1guide
+
+commit bf1b143f5c6d5dd73ae897afa76ce585f4ad3296
+Author: Brian Nguyen <s3689020@student.rmit.edu.au>
+Date:   Sun Nov 4 17:06:39 2018 +1100
+
+    Added man page / user documentation for display1 script
+
+commit b65abd9cba8dba6377d8bbd760b770bc3a72ed5d
+Author: Brian Nguyen <s3689020@student.rmit.edu.au>
+Date:   Sun Nov 4 11:59:02 2018 +1100
+
+    Added more comments for the display2 script
+
+commit a34ad0f158e7af41fd16190d4ba4900a10a468a1
+Author: Brian Nguyen <s3689020@student.rmit.edu.au>
+Date:   Sun Nov 4 09:27:32 2018 +1100
+
+    Added commentary for display1 code
+
+commit 19358c856cbf1ab3549a9b1276ae4538c5d4638f
+Author: Brian Nguyen <s3689020@student.rmit.edu.au>
+Date:   Sun Nov 4 09:20:37 2018 +1100
+
+    Finished adding full functionality of display2
+
+commit 136440390c4fbbd664f8f53ea3e7f9a9623e0862
+Author: Brian Nguyen <s3689020@student.rmit.edu.au>
+Date:   Sun Nov 4 07:45:31 2018 +1100
+
+    Added functionality of getting number of processes under current user
+
+commit 0a11c990ca0d8feb00e1b57e0bfac01c39b33c1e
+Author: Brian Nguyen <s3689020@student.rmit.edu.au>
+Date:   Sun Nov 4 07:32:11 2018 +1100
+
+    Added in nice number functionality for part 2 of part B
+
+commit b4cc35c0026743126f011c99627e89d493594898
+Author: Brian Nguyen <s3689020@student.rmit.edu.au>
+Date:   Sat Nov 3 23:10:59 2018 +1100
+
+    Start code for part 2 of part B
+
+commit 4218a1ad8d88ece73ddf5b37f525414a4b2f7393
+Author: Brian Nguyen <s3689020@student.rmit.edu.au>
+Date:   Wed Oct 31 22:38:41 2018 +1100
+
+    Made changes to connection info, disk display to be human readable and fixed conditional statements
+
+commit 388bb47898ef2d70dda170a269e829d2affc9828
+Author: Brian Nguyen <s3689020@student.rmit.edu.au>
+Date:   Wed Oct 31 22:11:39 2018 +1100
+
+    Added starting script for display1 which is for part 1 of B for assignment 2 cpt264
+
+commit 3fb66ee26b8271d21c7db29811b05c02bf838f51
+Author: Brian Nguyen <s3689020@student.rmit.edu.au>
+Date:   Wed Oct 24 22:36:02 2018 +1100
+
+    Testing of git setup by adding test text file report.txt
