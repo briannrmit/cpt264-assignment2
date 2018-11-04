@@ -1,0 +1,31 @@
+./* This is the manpage of the display2 script
+.TH display1 8 "2018-11-04" "V1.0" "display2 man page"
+
+.SH NAME
+display2
+
+.SH SYNOPSIS
+display2 [-a] [-b] [-c] [-d] [-e]
+
+
+.SH DESCRIPTION
+This display2 script allows users to display information based on the option provided by them. It includes cpu core, current process priorities, total number of running processes, 
+open file descriptors and maximum default number of file descriptors that can be opened by a process.
+
+
+
+.SH OPTIONS
+.IP -a
+Provides information on the number of CPU cores on the system.
+.IP -b
+Provides information on the current process' priority i.e. the current script as a nice number.
+.IP -c
+Provides the total number of processes running under the current user.
+.IP -d
+Provides the nubmer of open file descriptors owned by the current user.
+.IP -e
+Provides the maximum default number of file descriptors that can be opened by a process.
+
+.SH 
+AUTHOR
+Brian Nguyen s3689020
