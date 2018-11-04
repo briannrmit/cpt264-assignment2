@@ -1,0 +1,27 @@
+./* This is the manpage of the display1 script
+.TH display1 8 "2018-11-04" "V1.0" "display1 man page"
+
+.SH NAME
+display1
+
+.SH SYNOPSIS
+display1 [mem] [disk] [con] [uptime]
+
+
+.SH DESCRIPTION
+This simple application allows the user to display information based on an argument put in.
+The information displayed includes memory, disk space, connection devices and uptime of system.
+
+.SH OPTIONS
+.IP mem
+Provides the amount of free and occupied memory on the system in a human readable format.
+.IP disk
+Provides the amount of disk space occupied and free on the system in human readable form.
+.IP con
+Provides information for each network connection on the system (as a minimum, the ip and mac addresses for all connections on the system should be displayed.
+.IP uptime
+Provides the amount of time the system has been running.
+
+.SH 
+AUTHOR
+Brian Nguyen s3689020
