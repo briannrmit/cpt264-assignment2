@@ -2,20 +2,29 @@
 #!/bin/bash
 # This script fulfills the requirements for scripting part B, part 2 of the
 # second assignment of CPT264
+# The options that can be provided as input for this script include
+# a) Which provides the number of CPU cores on the system
+# b) Which provides the current process' priority as a nice number
+# c) Which provides the total number of processes running under the current user
+# d) Which provides the number of open file descriptors owned by the current user
+# e) Which provides the maximum default number of file descriptors that can be opened by a process.
+
 
 userid="$(whoami)"
 
 while getopts ":abcde" opt; do
   case $opt in
     a)
+      #gets the number of CPU cores on the system
       NCORE="$(grep -c ^processor /proc/cpuinfo)"
       echo Number of CPU cores on the system is ${NCORE};;
     b)
-      #get PID of current script
+      #get PID of current script then provides niceness number of that script
       processpid="$(pgrep display2)"
       niceness="$(ps -o ni $processpid | head -n 2 | tail -n 1)"
       echo The priority of the the current process is ${niceness};;
     c)
+      #gets the number of processes run by the current user
       nprocesses="$(ps -u $userid | wc -l)"
       echo The number of processes being run by current user is ${nprocesses};;
     d)
@@ -23,6 +32,7 @@ while getopts ":abcde" opt; do
       nofd="$(lsof | grep $userid | wc -l)"
       echo The number of open file descriptors by current user is ${nofd};;
     e)
+      #gets the maximum number of open files that can be used by current user
       maxnumperprocess="$(ulimit -n)"
       echo The max number of open files per process for this system is $maxnumperprocess;;
   esac
