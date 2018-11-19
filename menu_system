@@ -1,0 +1,83 @@
+
+#!/bin/bash
+# This is the Menu System for Part C of the assignment written by Brian Nguyen s3689020
+
+PRINTF=/usr/bin/printf
+LS=/bin/ls
+
+PWD=/bin/pwd
+SLEEP=/bin/sleep
+QUIT=0
+menu(){
+  $CLEAR
+  $PRINTF "\n"
+  $PRINTF " User Menu System\n"
+  $PRINTF "\n"
+  $PRINTF " 1) Display basic information \n"
+  $PRINTF "\n"
+  $PRINTF " 2) Display basic information (Items that involve post-processing) \n"
+  $PRINTF "\n" 
+  $PRINTF " 3) Find item  and apply an action (delete/print/print0/custom) \n"
+  $PRINTF "\n"
+  $PRINTF " 4) Basic profiler of program you want \n"
+  $PRINTF "\n"
+  $PRINTF "\n"
+  
+  return
+}
+
+
+#set up input validation for Basic information display (Part B Req1)
+display1_cases(){
+  QUITDISPLAY=0
+  while [ $QUITDISPLAY -eq 0 ] ; do
+  $PRINTF "What basic information would you like to display? (mem/disk/con/time), or enter Q to quit \n"
+  read CHOICE
+  if ( [ "$CHOICE" == "mem" ] || [ $CHOICE == "disk" ] || [ $CHOICE == "con"] || [ $CHOICE == "time"] ); then
+    ./display1 "$CHOICE"
+  elif [ "$CHOICE" == "Q" ]; then
+    QUITDISPLAY=1
+  else echo "Invalid option, please enter either mem/disk/con/time for display info or Q to quit display function"
+  fi
+done
+}
+
+while [ $QUIT -eq 0 ] ; do
+  menu
+
+  read CHOICE
+  case $CHOICE in
+    1)
+      $PRINTF "\n"
+      $PRINTF "\n"
+      display1_cases
+      $SLEEP 2
+      ;;
+    2)
+      $PRINTF "\n"
+      $PRINTF "\n"
+      $PWD
+      $SLEEP 2
+      ;;
+    3)
+      $PRINTF "\n"
+      $PRINTF "\n"
+      $LS
+      $SLEEP 2
+      ;;
+    4)
+      $PRINTF "\n"
+      $PRINTF "\n"
+      $PRINTF "And that's goodnight from me\n"
+      $SLEEP 2
+      ;;
+    [Qq])
+      QUIT=1;;
+    ?)
+      $PRINTF "\n"
+      $PRINTF "\n"
+      $PRINTF "Invalid option entered\n"
+      $PRINTF "Valid options are 1, 2, 3, 4, and Q to quit\n"
+      $SLEEP 2;;
+  esac
+done      
