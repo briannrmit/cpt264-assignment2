@@ -10,6 +10,7 @@ QUIT=0
 menu(){
   $CLEAR
   $PRINTF "\n"
+  $PRINTF "~~~~~~~~~~~~~~~~~~~~\n"
   $PRINTF " User Menu System\n"
   $PRINTF "~~~~~~~~~~~~~~~~~~~~"
   $PRINTF "\n"
@@ -27,9 +28,9 @@ menu(){
 }
 
 
-#set up input validation for Basic information display (Part B Req1)
+# Set up input validation and menu for Basic information display (Part B Req1)
 display1_cases(){
-  QUITDISPLAY=0
+  local QUITDISPLAY=0
   while [ $QUITDISPLAY -eq 0 ] ; do
   $PRINTF "What basic information would you like to display? (mem/disk/con/time), or enter Q to quit \n"
   read CHOICE
@@ -41,6 +42,23 @@ display1_cases(){
   fi
 done
 }
+
+
+# Set up input validation and menu for Basic information display with processing (Part B Req2)
+display2_cases(){
+  local QUITDISPLAY=0
+  while [ $QUITDISPLAY -eq 0 ] ; do
+  $PRINTF "What basic information with post processing would you like to display? (cpu/current process priority/con/time), or enter Q to quit \n"
+  read CHOICE
+  if [ "$CHOICE" == "mem" ] || [ "$CHOICE" == "disk" ] || [ "$CHOICE" == "con" ] || [ "$CHOICE" == "time" ]; then
+    ./display1 "$CHOICE"
+  elif [ "$CHOICE" == "Q" ] || [ "$CHOICE" == "q" ]; then
+    QUITDISPLAY=1
+  else echo "Invalid option, please enter either mem/disk/con/time for display info or Q to quit display function"
+  fi
+done
+}
+
 
 while [ $QUIT -eq 0 ] ; do
   menu
