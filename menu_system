@@ -17,9 +17,9 @@ menu(){
   $PRINTF "\n"
   $PRINTF " 2) Display basic information (Items that involve post-processing) \n"
   $PRINTF "\n" 
-  $PRINTF " 3) Find item  and apply an action (delete/print/print0/custom) \n"
+  $PRINTF " 3) Find an item within system and apply an action (delete/print/print0/custom) \n"
   $PRINTF "\n"
-  $PRINTF " 4) Basic profiler of program you want \n"
+  $PRINTF " 4) Basic profiler of the program you want \n"
   $PRINTF "\n"
   $PRINTF "Please enter [1-4] for the any of the options above, or Q to quit the menu:"
   
@@ -35,7 +35,7 @@ display1_cases(){
   read CHOICE
   if [ "$CHOICE" == "mem" ] || [ "$CHOICE" == "disk" ] || [ "$CHOICE" == "con" ] || [ "$CHOICE" == "time" ]; then
     ./display1 "$CHOICE"
-  elif [ "$CHOICE" == "Q" ]; then
+  elif [ "$CHOICE" == "Q" ] || [ "$CHOICE" == "q" ]; then
     QUITDISPLAY=1
   else echo "Invalid option, please enter either mem/disk/con/time for display info or Q to quit display function"
   fi
