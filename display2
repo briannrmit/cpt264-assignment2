@@ -11,28 +11,36 @@
 
 userid="$(whoami)"
 
-while getopts ":abcde" opt; do
-  case $opt in
-    a)
-      #gets the number of CPU cores on the system
-      NCORE="$(grep -c ^processor /proc/cpuinfo)"
-      echo Number of CPU cores on the system is ${NCORE};;
-    b)
-      #get PID of current script then provides niceness number of that script
-      processpid="$(pgrep display2)"
-      niceness="$(ps -o ni $processpid | head -n 2 | tail -n 1)"
-      echo The priority of the the current process is ${niceness};;
-    c)
-      #gets the number of processes run by the current user
-      nprocesses="$(ps -u $userid | wc -l)"
-      echo The number of processes being run by current user is ${nprocesses};;
-    d)
-      #gets number of open file descriptors by current user
-      nofd="$(lsof -u $USER | wc -l)"
-      echo The number of open file descriptors by current user is ${nofd};;
-    e)
-      #gets the maximum number of open files that can be used by current user
-      maxnumperprocess="$(ulimit -n)"
-      echo The max number of open files per process for this system is $maxnumperprocess;;
-  esac
+if [[ $1 == "" ]] || ! [[ $1 =~ -. ]]; then  {
+	echo "Error, invalid or no arguments added, please use either -n(number of cores), -c(PID current script), -p(number of running processes), -f(open file descriptors), -o(open files)";
+}
+else {
+	while getopts ":ncpfo" opt; do
+	  case $opt in
+	    n)
+	      #gets the number of CPU cores on the system
+	      NCORE="$(grep -c ^processor /proc/cpuinfo)"
+	      echo Number of CPU cores on the system is "${NCORE}";;
+	    c)
+	      #get PID of current script then provides niceness number of that script
+	      processpid="$(pgrep display2)"
+	      niceness="$(ps -o ni "$processpid" | head -n 2 | tail -n 1)"
+	      echo The priority of the the current process is "${niceness}";;
+	    p)
+	      #gets the number of processes run by the current user
+	      nprocesses="$(ps -u "$userid" | wc -l)"
+	      echo The number of processes being run by current user is "${nprocesses}";;
+	    f)
+	      #gets number of open file descriptors by current user
+	      nofd="$(lsof -u "$USER" | wc -l)"
+	      echo The number of open file descriptors by current user is "${nofd}";;
+	    o)
+	      #gets the maximum number of open files that can be used by current user
+	      maxnumperprocess="$(ulimit -n)"
+	      echo The max number of open files per process for this system is "${maxnumperprocess}";;
+	    *)
+	      echo "Error, invalid arguments added, please use either -n(number of cores), -c(PID current script), -p(number of running processes), -f(open file descriptors), -o(open files)";;
+	  esac
 done
+    }
+fi
