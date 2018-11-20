@@ -1,4 +1,3 @@
-
 #!/bin/bash
 # This is the Menu System for Part C of the assignment written by Brian Nguyen s3689020
 
@@ -12,6 +11,7 @@ menu(){
   $CLEAR
   $PRINTF "\n"
   $PRINTF " User Menu System\n"
+  $PRINTF "~~~~~~~~~~~~~~~~~~~~"
   $PRINTF "\n"
   $PRINTF " 1) Display basic information \n"
   $PRINTF "\n"
@@ -21,7 +21,7 @@ menu(){
   $PRINTF "\n"
   $PRINTF " 4) Basic profiler of program you want \n"
   $PRINTF "\n"
-  $PRINTF "\n"
+  $PRINTF "Please enter [1-4] for the any of the options above, or Q to quit the menu:"
   
   return
 }
@@ -33,7 +33,7 @@ display1_cases(){
   while [ $QUITDISPLAY -eq 0 ] ; do
   $PRINTF "What basic information would you like to display? (mem/disk/con/time), or enter Q to quit \n"
   read CHOICE
-  if ( [ "$CHOICE" == "mem" ] || [ $CHOICE == "disk" ] || [ $CHOICE == "con"] || [ $CHOICE == "time"] ); then
+  if [ "$CHOICE" == "mem" ] || [ "$CHOICE" == "disk" ] || [ "$CHOICE" == "con" ] || [ "$CHOICE" == "time" ]; then
     ./display1 "$CHOICE"
   elif [ "$CHOICE" == "Q" ]; then
     QUITDISPLAY=1
