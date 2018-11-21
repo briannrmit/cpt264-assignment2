@@ -1,0 +1,62 @@
+#!/bin/bash
+# This script is written by Brian Nguyen s3689020
+# It aims to write the find command as a way of querying the system based on user inputs, then does
+# a required action as specified by the user on the found item
+
+PRINTF=/usr/bin/printf
+SLEEP=/bin/sleep
+
+
+# 1. Script entry point, collect starting directory from user.
+QUIT=0
+while [ $QUIT -eq 0 ] ; do
+
+	$PRINTF "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+	$PRINTF "You've begun the find script to query the system for an item and applying an action you require.\n \n"
+	$PRINTF "Please begin by entering the starting point (directory) where you'd like to search from\n"
+	$PRINTF "or enter Q to quit:\n"
+	$PRINTF "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+	read -r DIRECTORYCHOICE
+	$PRINTF "\n"
+	if [ -d "$DIRECTORYCHOICE" ]; then 
+		echo "$DIRECTORYCHOICE is VALIDATED and collected from you as the starting searching directory"
+		#export "$DIRECTORYCHOICE"
+		$PRINTF "\n"
+		QUIT=1;
+	elif [ "$DIRECTORYCHOICE" == "q" ] || [ "$DIRECTORYCHOICE" == "Q" ]; then
+		echo "QUITTING...."
+		$PRINTF "\n"
+		$SLEEP 1
+		exit 1;
+	else
+		echo "$DIRECTORYCHOICE is NOT A VALID directory please reenter a valid starting searching directory";
+		$PRINTF "\n"
+	fi
+done
+
+# 2. Script second point, get thing to search for either path, type, group or fstype.
+QUIT=0
+while [ $QUIT -eq 0 ] ; do
+	$PRINTF "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+	$PRINTF "Please enter the thing to search for, that is one of either (path|type|group|fstype)\n"
+	$PRINTF "or enter Q to quit:\n"
+	$PRINTF "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+	read -r TYPECHOICE
+	$PRINTF "\n"
+	if [ "$TYPECHOICE" == "path" ] || [ "$TYPECHOICE" == "type" ] || [ "$TYPECHOICE" == "group" ] || [ "$TYPECHOICE" == "fstype" ]; then 
+		echo "$TYPECHOICE is a valid search type and collected from you as the thing to search for"
+		#export "$TYPECHOICE"
+		$PRINTF "\n"
+		QUIT=1;
+	elif [ "$TYPECHOICE" == "q" ] || [ "$TYPECHOICE" == "Q" ]; then
+		echo "QUITTING....\n"
+		$SLEEP 1
+		exit 1;
+	else
+		echo "$TYPECHOICE is NOT A VALID type please reenter a valid search type, make sure to check case and spelling";
+		$PRINTF "\n"
+	fi
+done
+
+echo "$DIRECTORYCHOICE"
+echo "$TYPECHOICE"
