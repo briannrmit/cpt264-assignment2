@@ -58,5 +58,31 @@ while [ $QUIT -eq 0 ] ; do
 	fi
 done
 
+# 3. Script third point, collect value to apply to thing for search.
+QUIT=0
+while [ $QUIT -eq 0 ] ; do
+
+	$PRINTF "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+	$PRINTF "Please enter the value you would like to search\n"
+	$PRINTF "or enter Q to quit:\n"
+	$PRINTF "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+	read -r VALUE
+	$PRINTF "\n"
+	if [ "$VALUE" == "q" ] || [ "$VALUE" == "Q" ]; then
+		echo "QUITTING...."
+		$PRINTF "\n"
+		$SLEEP 1
+		exit 1;
+	else
+		VALUE=$(sed 's/[^a-zA-Z0-9]/\\&/g' <<<"$VALUE")  
+		echo "$VALUE has been cleansed and accepted by the user as the value of search for the item.";
+		$PRINTF "\n"
+		QUIT=1;
+	fi
+done
+
+
+
+
 echo "$DIRECTORYCHOICE"
 echo "$TYPECHOICE"
