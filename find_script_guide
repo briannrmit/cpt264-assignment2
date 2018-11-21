@@ -1,0 +1,48 @@
+./* This is the manpage of the find_script script
+.TH Find_script 8 "2018-11-20" "V1.0" "find_script man page"
+
+.SH NAME
+find_script
+
+
+.SH DESCRIPTION
+This find script collects information from the user via read and performs a find. It collects the starting point directory,
+the item to search for, the value that is applied to the item that it is searching for, the maximum depth of the search
+whether or not you want to follow symbolic links.
+
+It will also then apply an action to the found results of the find command. The action can also be a scriptlet entered
+by the user.
+
+
+.SH USAGE GUIDE
+.IP -STARTING POINT
+The user is first prompted for a starting directory. Entering a blank answer will give the current directory.
+The system will check if the directory is valid before proceeding. If the user wants to quit they can press q or Q.
+
+.IP -SEARCH ITEM
+Secondly, the user will be asked to enter the thing they want to search for. These options are limited to
+path, type, group, fstype. The system will check if these are options are entered other it will prompt
+user to reenter. The user may also quit from this stage by pressing q or Q.
+
+.IP -VALUE OF SEARCH
+The user may then enter the value of the item they want to search. This value will have its special characters escaped
+so that the expansion by shell is protected. The user may also quit from this stage by pressing q or Q.
+
+.IP -MAXIMUM DEPTH
+The system will request the user to enter the maximum search depth as an integer. Integer checks of the input is 
+validated before procedure. Blank entering considers no maxdepth to be applied. The user may also quit from
+this stage by pressing q or Q.
+
+.IP -SYMBOLIC LINKS
+The system will ask the user to enable or disable follow through of symbolic links. They are requested to input
+y/n (case insensitive) to flag their desire. Blank answers consider it to be yes. The user may also quit form this
+stage by pressing q or Q.
+
+.IP -ACTIONS
+The user is finally requested to enter an action they which to commit either delete, print, print0 or custom.
+For custom, the user is prompted to enter a scriptlet they wish to perform on the search results.
+The user may quit using q or Q.
+
+.SH 
+AUTHOR
+Brian Nguyen s3689020
