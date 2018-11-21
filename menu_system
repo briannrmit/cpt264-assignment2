@@ -32,13 +32,14 @@ menu(){
 display1_cases(){
   local QUITDISPLAY=0
   while [ $QUITDISPLAY -eq 0 ] ; do
-  $PRINTF "What basic information would you like to display? (mem/disk/con/time), or enter Q to quit \n"
-  read CHOICE
+  $PRINTF "What basic information would you like to display? Enter one of (mem/disk/con/time), or enter Q to quit \n"
+  read -r CHOICE
   if [ "$CHOICE" == "mem" ] || [ "$CHOICE" == "disk" ] || [ "$CHOICE" == "con" ] || [ "$CHOICE" == "time" ]; then
     ./display1 "$CHOICE"
+    $PRINTF "\n"
   elif [ "$CHOICE" == "Q" ] || [ "$CHOICE" == "q" ]; then
     QUITDISPLAY=1
-  else echo "Invalid option, please enter either mem/disk/con/time for display info or Q to quit display function"
+  else echo "Invalid option, please enter either mem/disk/con/time for display info or Q to quit display function\n"
   fi
 done
 }
@@ -48,13 +49,28 @@ done
 display2_cases(){
   local QUITDISPLAY=0
   while [ $QUITDISPLAY -eq 0 ] ; do
-  $PRINTF "What basic information with post processing would you like to display? (cpu/current process priority/con/time), or enter Q to quit \n"
-  read CHOICE
-  if [ "$CHOICE" == "mem" ] || [ "$CHOICE" == "disk" ] || [ "$CHOICE" == "con" ] || [ "$CHOICE" == "time" ]; then
-    ./display1 "$CHOICE"
+  $PRINTF "What basic information with post processing would you like to display?\n"
+  $PRINTF "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+  $PRINTF "Please enter options as a combination of [ncpfo] where:\n"
+  $PRINTF "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+  $PRINTF "n gives the number of CPU core on the system\n"
+  $PRINTF "c gives currenct process' priority\n"
+  $PRINTF "p gives the total number of processes running under current user\n"
+  $PRINTF "f gives the number of open file descriptors owned by the current user\n"
+  $PRINTF "o gives the max number of file descriptors that can be opened by a process\n"
+  $PRINTF "or enter Q to quit \n"
+  $PRINTF "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+  read -r CHOICE
+  if ! [[ "$CHOICE" =~ [^ncpfo] ]]; then
+    $PRINTF "\n"
+    ./display2 "-$CHOICE"
+    $PRINTF "\n"
   elif [ "$CHOICE" == "Q" ] || [ "$CHOICE" == "q" ]; then
     QUITDISPLAY=1
-  else echo "Invalid option, please enter either mem/disk/con/time for display info or Q to quit display function"
+  else 
+    $PRINTF "\n"
+    echo "Invalid option, please enter either options as a combination of [ncpfo] for display info or Q to quit display function"
+    $PRINTF "\n"
   fi
 done
 }
@@ -63,18 +79,20 @@ done
 while [ $QUIT -eq 0 ] ; do
   menu
 
-  read CHOICE
+  read -r CHOICE
   case $CHOICE in
     1)
       $PRINTF "\n"
       $PRINTF "\n"
       display1_cases
+      $PRINTF "\n"
       $SLEEP 2
       ;;
     2)
       $PRINTF "\n"
       $PRINTF "\n"
-      $PWD
+      display2_cases
+      $PRINTF "\n"
       $SLEEP 2
       ;;
     3)
