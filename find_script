@@ -13,22 +13,29 @@ while [ $QUIT -eq 0 ] ; do
 
 	$PRINTF "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
 	$PRINTF "You've begun the find script to query the system for an item and applying an action you require.\n \n"
-	$PRINTF "Please begin by entering the starting point (directory) where you'd like to search from\n"
+	$PRINTF "Please begin by entering the starting point (directory) where you'd like to search from.\n\n"
+	$PRINTF "Alternatively, you can leave it blank if you want to use the current directory you're in\n"
 	$PRINTF "or enter Q to quit:\n"
 	$PRINTF "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
 	read -r DIRECTORYCHOICE
-	$PRINTF "\n"
-	if [ -d "$DIRECTORYCHOICE" ]; then 
+	if  [ "$DIRECTORYCHOICE" == "" ]; then
+		echo "The current directory $(pwd) will be used as the starting point"
+		DIRECTORYCHOICE=$(pwd)
+		$PRINTF "\n"
+		QUIT=1
+	elif	[ -d "$DIRECTORYCHOICE" ]; then 
+		$PRINTF "\n"
 		echo "$DIRECTORYCHOICE is VALIDATED and collected from you as the starting searching directory"
-		#export "$DIRECTORYCHOICE"
 		$PRINTF "\n"
 		QUIT=1;
 	elif [ "$DIRECTORYCHOICE" == "q" ] || [ "$DIRECTORYCHOICE" == "Q" ]; then
+		$PRINTF "\n"
 		echo "QUITTING...."
 		$PRINTF "\n"
 		$SLEEP 1
 		exit 1;
 	else
+		$PRINTF "\n"
 		echo "$DIRECTORYCHOICE is NOT A VALID directory please reenter a valid starting searching directory";
 		$PRINTF "\n"
 	fi
@@ -45,11 +52,10 @@ while [ $QUIT -eq 0 ] ; do
 	$PRINTF "\n"
 	if [ "$TYPECHOICE" == "path" ] || [ "$TYPECHOICE" == "type" ] || [ "$TYPECHOICE" == "group" ] || [ "$TYPECHOICE" == "fstype" ]; then 
 		echo "$TYPECHOICE is a valid search type and collected from you as the thing to search for"
-		#export "$TYPECHOICE"
 		$PRINTF "\n"
 		QUIT=1;
 	elif [ "$TYPECHOICE" == "q" ] || [ "$TYPECHOICE" == "Q" ]; then
-		echo "QUITTING....\n"
+		echo "QUITTING...."
 		$SLEEP 1
 		exit 1;
 	else
@@ -74,15 +80,100 @@ while [ $QUIT -eq 0 ] ; do
 		$SLEEP 1
 		exit 1;
 	else
-		VALUE=$(sed 's/[^a-zA-Z0-9]/\\&/g' <<<"$VALUE")  
 		echo "$VALUE has been cleansed and accepted by the user as the value of search for the item.";
+		VALUE=$(sed 's/[^a-zA-Z0-9]/\\&/g' <<<"$VALUE")  
 		$PRINTF "\n"
 		QUIT=1;
 	fi
 done
 
+# 4. Script fourth point, get maxdepth desirability.
+QUIT=0
+while [ $QUIT -eq 0 ] ; do
+	$PRINTF "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+	$PRINTF "Please enter the maxdepth of the search, if no maxdepth is required press enter as a blank\n"
+	$PRINTF "or enter Q to quit:\n"
+	$PRINTF "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+	read -r DEPTH
+	$PRINTF "\n"
+	if [[ "$DEPTH" == "" ]]; then
+		echo "No maxdepth required"
+		$PRINTF "\n"
+		QUIT=1;
+	elif [[ "$DEPTH" =~ ^[0-9]+$ ]]; then 
+		echo "$DEPTH is entered is a valid maxdepth number and will be used as the maxdepth argument"
+		DEPTH="-maxdepth $DEPTH"
+		$PRINTF "\n"
+		QUIT=1;
+	elif [ "$DEPTH" == "q" ] || [ "$DEPTH" == "Q" ]; then
+		echo "QUITTING...."
+		$SLEEP 1
+		exit 1;
+	else
+		echo "$DEPTH is NOT A VALID maxdepth number, make sure to check input is an integer";
+		$PRINTF "\n"
+	fi
+done
+
+# 5. Script fourth point, flag whether to follow symbolic links.
+QUIT=0
+while [ $QUIT -eq 0 ] ; do
+	$PRINTF "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+	$PRINTF "Please enter (y/n) if you want to follow through with symbolic links, blank answer will be taken as yes\n"
+	$PRINTF "or enter Q to quit:\n"
+	$PRINTF "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+	read -r SYMLINKS
+	$PRINTF "\n"
+	if [[ "$SYMLINKS" == "" ]] || [[ "$SYMLINKS" == "y" ]] || [ "$SYMLINKS" == "Y" ]; then
+		echo "Symbolic links are confirmed to be followed if found"
+		SYMLINKS="-L"
+		$PRINTF "\n"
+		QUIT=1;
+	elif [[ "$SYMLINKS" == "n" ]] || [ "$SYMLINKS" == "N" ]; then
+		echo "Symbolic links are confirmed NOT TO BE followed if found"
+		$PRINTF "\n"
+		SYMLINKS=""
+		QUIT=1;
+	elif [ "$SYMLINKS" == "q" ] || [ "$SYMLINKS" == "Q" ]; then
+		echo "QUITTING...."
+		$SLEEP 1
+		exit 1;
+	else
+		echo "$SYMLINKS is not a valid option";
+		$PRINTF "\n"
+	fi
+done
+
+# 6. Script fifth point, get action that the user wants to perform on search result.
+QUIT=0
+while [ $QUIT -eq 0 ] ; do
+	$PRINTF "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+	$PRINTF "Please enter an action you want to do on results (delete|print|print0|custom)\n"
+        $PRINTF	"where custom allows you to write your own scriptlet\n\n"
+	$PRINTF "or enter Q to quit:\n"
+	$PRINTF "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+	read -r ACTION
+	$PRINTF "\n"
+	if [[ "$ACTION" == "delete" ]] || [[ "$ACTION" == "print" ]] || [ "$ACTION" == "print0" ]; then
+		echo "$ACTION action is confirmed to be used on the result"
+		$PRINTF "\n"
+		QUIT=1;
+	elif [[ "$ACTION" == "custom" ]]; then
+		$PRINTF "Please enter a scriptlet you would like to use on the search result:\n"
+		read -r SCRIPTLET
+		$PRINTF "\n"
+		$PRINTF "$SCRIPTLET confirmed to be the course of action to use on the search result\n"
+		QUIT=1;
+	elif [ "$ACTION" == "q" ] || [ "$ACTION" == "Q" ]; then
+		echo "QUITTING...."
+		$SLEEP 1
+		exit 1;
+	else
+		echo "$ACTION is not a valid option, check your input again";
+		$PRINTF "\n"
+	fi
+done
 
 
-
-echo "$DIRECTORYCHOICE"
-echo "$TYPECHOICE"
+echo ""$SYMLINKS"" ""$DIRECTORYCHOICE"" ""$DEPTH"" ""-$TYPECHOICE"" ""$VALUE"" ""-$ACTION""
+find ""$SYMLINKS"" ""$DIRECTORYCHOICE"" ""$DEPTH"" ""-$TYPECHOICE"" ""$VALUE"" ""-$ACTION""
